@@ -73,12 +73,14 @@ public class BasicInsertUpdate {
 			
 			mongoCon = MongoConnection.getMongoConnection();
 			// Accessing the database 
-		     MongoDatabase database = mongoCon.getDatabase("practicedb");  
-		     if(database == null){
-		    	 System.out.println("Connection failed");
-		     }else{
-		    	 System.out.println("Connected to the database successfully");
-		     }
+		    MongoDatabase database = mongoCon.getDatabase("practicedb");  
+		    if(database == null){
+		    System.out.println("Connection failed");
+		    }else{
+		    	System.out.println("Connected to the database successfully");
+		    }
+		     
+		    //Updating request 
 			MongoCollection<Document> collection = database.getCollection("hgapiuatlogs");
 			collection.updateOne(
 					Filters.and(

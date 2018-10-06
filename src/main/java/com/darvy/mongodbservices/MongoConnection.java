@@ -15,6 +15,6 @@ public class MongoConnection
 		 MongoClientURI uri = new MongoClientURI("mongodb://admin:admin123@127.0.0.1:27017/?authSource=testdb");
 		 MongoClient mongoCon = new MongoClient(uri); 
 		
-		return mongoCon;
+	return mongoCon;
 	}
 }
