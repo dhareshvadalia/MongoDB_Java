@@ -89,6 +89,8 @@ public class BasicInsertUpdate {
 					Updates.combine(
 							Updates.set("status","Confirmed"),
 							Updates.set("booking_date", new Date())));
+			
+			System.out.println("Mongo Request Updated");
 		}
 		catch (MongoServerException e){
 		}
@@ -98,7 +100,7 @@ public class BasicInsertUpdate {
 	}
 	
 	
-	public static void main() throws ParseException {
+	public static void main(String... args) throws ParseException {
 		BasicInsertUpdate conn = new BasicInsertUpdate();
 		conn.addBookingRequest();
 		conn.updateBookingRequest();
