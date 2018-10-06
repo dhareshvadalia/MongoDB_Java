@@ -43,7 +43,7 @@ public class BasicInsertUpdate {
 		mongoCon = MongoConnection.getMongoConnection();
 		
 		// Accessing the database 
-	     MongoDatabase database = mongoCon.getDatabase("testdb");  
+	     MongoDatabase database = mongoCon.getDatabase("kharcha");  
 	     if(database == null){
 	    	 System.out.println("Connection failed");
 	     }else{
@@ -51,7 +51,7 @@ public class BasicInsertUpdate {
 	     }
 	     
 	     //Get collection
-	     MongoCollection<Document> collection = database.getCollection("practice");
+	     MongoCollection<Document> collection = database.getCollection("ticketbooking");
 		
 		//insert document
 		collection.insertOne(doc);
@@ -73,7 +73,7 @@ public class BasicInsertUpdate {
 			
 			mongoCon = MongoConnection.getMongoConnection();
 			// Accessing the database 
-		    MongoDatabase database = mongoCon.getDatabase("practicedb");  
+		    MongoDatabase database = mongoCon.getDatabase("kharcha");  
 		    if(database == null){
 		    System.out.println("Connection failed");
 		    }else{
@@ -81,7 +81,7 @@ public class BasicInsertUpdate {
 		    }
 		     
 		    //Updating request 
-			MongoCollection<Document> collection = database.getCollection("hgapiuatlogs");
+			MongoCollection<Document> collection = database.getCollection("ticketbooking");
 			collection.updateOne(
 					Filters.and(
 					Filters.eq("ticket_id",tkt_id),
