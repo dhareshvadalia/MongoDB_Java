@@ -1,4 +1,4 @@
-package com.darvy.mongodbservices;
+package com.darvy.mongodbservices.config;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
