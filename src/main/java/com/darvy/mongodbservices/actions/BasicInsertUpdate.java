@@ -1,4 +1,4 @@
-package com.darvy.mongodbservices;
+package com.darvy.mongodbservices.actions;
 /**
  * @author dharesh
  *
@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.bson.Document;
 
+import com.darvy.mongodbservices.config.MongoConnection;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mongodb.MongoClient;
@@ -19,10 +20,10 @@ import com.mongodb.client.model.Updates;
 
 public class BasicInsertUpdate {
 	
-	MongoClient mongoCon = null;
-	double tkt_id = Math.floor(Math.random() * 10000000);
+	static MongoClient mongoCon = null;
+	static double tkt_id = Math.floor(Math.random() * 10000000);
 	
-	public boolean addBookingRequest(){
+	public static boolean addBookingRequest(){
 	
 		try{
 		Document doc_reqBody = null;
@@ -31,6 +32,7 @@ public class BasicInsertUpdate {
         	journey_detail.addProperty("stn_from", "mumbai-cstm");
         	journey_detail.addProperty("stn_to", "nagpur");
         	journey_detail.addProperty("cost", 2540);
+        	journey_detail.addProperty("journey_date", new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 5)).toString());
        
         	doc_reqBody = Document.parse(new Gson().toJson(journey_detail));
         
@@ -43,15 +45,11 @@ public class BasicInsertUpdate {
 		mongoCon = MongoConnection.getMongoConnection();
 		
 		// Accessing the database 
-	     MongoDatabase database = mongoCon.getDatabase("testdb");  
-	     if(database == null){
-	    	 System.out.println("Connection failed");
-	     }else{
-	    	 System.out.println("Connected to the database successfully");
-	     }
+	     MongoDatabase database = mongoCon.getDatabase("kharcha");  
+	     if(database == null) System.out.println("Connection failed");
 	     
 	     //Get collection
-	     MongoCollection<Document> collection = database.getCollection("practice");
+	     MongoCollection<Document> collection = database.getCollection("ticketbooking");
 		
 		//insert document
 		collection.insertOne(doc);
@@ -59,7 +57,7 @@ public class BasicInsertUpdate {
 		
 		}
 		catch (MongoServerException e){
-		    return false;
+			return false;
 		}
 		finally{
 			mongoCon.close();
@@ -67,19 +65,17 @@ public class BasicInsertUpdate {
 		return true;
 	}
 	
-	public void updateBookingRequest() throws ParseException{
+	public static void updateBookingRequest() throws ParseException{
 		
 		try{
 			
 			mongoCon = MongoConnection.getMongoConnection();
 			// Accessing the database 
-		     MongoDatabase database = mongoCon.getDatabase("practicedb");  
-		     if(database == null){
-		    	 System.out.println("Connection failed");
-		     }else{
-		    	 System.out.println("Connected to the database successfully");
-		     }
-			MongoCollection<Document> collection = database.getCollection("hgapiuatlogs");
+		    MongoDatabase database = mongoCon.getDatabase("kharcha");  
+		    if(database == null) System.out.println("Connection failed");
+		     
+		    //Updating request 
+			MongoCollection<Document> collection = database.getCollection("ticketbooking");
 			collection.updateOne(
 					Filters.and(
 					Filters.eq("ticket_id",tkt_id),
@@ -87,6 +83,8 @@ public class BasicInsertUpdate {
 					Updates.combine(
 							Updates.set("status","Confirmed"),
 							Updates.set("booking_date", new Date())));
+			
+			System.out.println("Ticket Confirmed : Ticket id ["+ Math.floor(tkt_id) +"] ");
 		}
 		catch (MongoServerException e){
 		}
@@ -94,12 +92,4 @@ public class BasicInsertUpdate {
 			mongoCon.close();
 		}
 	}
-	
-	
-	public static void main() throws ParseException {
-		BasicInsertUpdate conn = new BasicInsertUpdate();
-		conn.addBookingRequest();
-		conn.updateBookingRequest();
-	}
-
 }
