@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 import com.darvy.mongodbservices.actions.BasicInsertUpdate;
+import com.darvy.mongodbservices.actions.BookingCancellation;
 import com.darvy.mongodbservices.actions.ComplaintQuery;
 import com.darvy.mongodbservices.actions.RetrievingData;
 
@@ -23,7 +24,7 @@ public class BookingController {
 			break;
 		}
 		case 2:{
-			System.out.println(choice);
+			BookingCancellation.bookingcancellation();
 			break;
 		}
 		case 3:{
