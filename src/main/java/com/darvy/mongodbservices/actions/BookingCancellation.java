@@ -19,7 +19,7 @@ import com.mongodb.client.model.Updates;
 
 public class BookingCancellation {
 
-	public void bookingcancellation() {
+	public static void bookingcancellation() {
 	
 	MongoClient mongoCon = null;
 	try {
