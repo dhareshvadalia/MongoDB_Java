@@ -51,6 +51,8 @@ public class BookingCancellation {
 				Updates.combine(
 						Updates.set("status","Cancelled"),
 						Updates.set("cancellation_date", new Date())));
+		
+		System.out.println("Ticket Cancelled:" + ticketid);
 	
 	}
 	catch (Exception e){
